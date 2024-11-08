@@ -1,48 +1,64 @@
 let geld = 1000; 
 let flugzeuge = [
-let flugzeuge = [
-    {
-        name: "Airbus A320",
-        kapazitaet: 180,
-        preis: 100000,
-        verfügbar: 5,
-        beschreibung: "Der Airbus A320 ist ein mittelgroßes Passagierflugzeug, ideal für kurze bis mittellange Strecken."
+    { 
+        name: "Airbus A320", 
+        kapazitaet: 180, 
+        preis: 100000, 
+        verfügbar: 5, 
+        beschreibung: "Der Airbus A320 ist ein mittelgroßes Passagierflugzeug, ideal für kurze bis mittellange Strecken." 
     },
-    {
-        name: "Boeing 737",
-        kapazitaet: 160,
-        preis: 95000,
-        verfügbar: 5,
-        beschreibung: "Die Boeing 737 ist ein beliebtes Verkehrsflugzeug, das für seine Effizienz auf Mittelstreckenflügen bekannt ist."
+    { 
+        name: "Boeing 737", 
+        kapazitaet: 160, 
+        preis: 95000, 
+        verfügbar: 5, 
+        beschreibung: "Die Boeing 737 ist ein beliebtes Verkehrsflugzeug, das für seine Effizienz auf Mittelstreckenflügen bekannt ist." 
     },
-    {
-        name: "Boeing 747",
-        kapazitaet: 400,
-        preis: 250000,
-        verfügbar: 5,
-        beschreibung: "Die Boeing 747, auch als 'Jumbo' bekannt, bietet enorme Kapazität für Langstreckenflüge."
+    { 
+        name: "Boeing 747", 
+        kapazitaet: 400, 
+        preis: 250000, 
+        verfügbar: 5, 
+        beschreibung: "Die Boeing 747, auch als 'Jumbo' bekannt, bietet enorme Kapazität für Langstreckenflüge." 
     }
 ];
+
+let mitarbeiter = [
+    {
+        name: "Pilot",
+        kosten: 50000,
+        anzahl: 0,
+        beschreibung: "Piloten sind für den sicheren Betrieb der Flugzeuge verantwortlich. Ein qualifizierter Pilot kann das Risiko von Zwischenfällen minimieren."
+    },
+    {
+        name: "Flughafenpersonal",
+        kosten: 20000,
+        anzahl: 0,
+        beschreibung: "Flughafenpersonal kümmert sich um die Gepäckabfertigung, Boarding und andere logistische Aufgaben am Flughafen."
+    }
 ];
 
 let ruten = []; // Array für Routen
 let einnahmen = 0;
 let ausgaben = 0;
 
+// Zeigt die Flottenübersicht
 function zeigeFlottenansicht() {
     const ansicht = document.getElementById('ansicht');
-    ansicht.innerHTML = '<h2>Flottenübersicht</h2><table class="table"><tr><th>Flugzeug</th><th>Kapazität</th><th>Preis</th><th>Verfügbar</th></tr>';
+    ansicht.innerHTML = '<h2>Flottenübersicht</h2><table class="table"><tr><th>Flugzeug</th><th>Kapazität</th><th>Preis</th><th>Verfügbar</th><th>Beschreibung</th></tr>';
     flugzeuge.forEach(flugzeug => {
         ansicht.innerHTML += `<tr>
             <td>${flugzeug.name}</td>
             <td>${flugzeug.kapazitaet}</td>
             <td>${flugzeug.preis} €</td>
             <td>${flugzeug.verfügbar}</td>
+            <td>${flugzeug.beschreibung}</td> <!-- Beschreibung des Flugzeugs -->
         </tr>`;
     });
     ansicht.innerHTML += '</table>';
 }
 
+// Zeigt die Routenübersicht
 function zeigeRoutenansicht() {
     const ansicht = document.getElementById('ansicht');
     ansicht.innerHTML = '<h2>Routenübersicht</h2>';
@@ -62,6 +78,7 @@ function zeigeRoutenansicht() {
     }
 }
 
+// Zeigt die Finanzübersicht
 function zeigeFinanzenansicht() {
     const ansicht = document.getElementById('ansicht');
     ansicht.innerHTML = `<h2>Finanzen</h2>
@@ -70,9 +87,72 @@ function zeigeFinanzenansicht() {
         <p>Aktuelles Geld: ${geld} €</p>`;
 }
 
+// Zeigt eine Weltkarte an
 function zeigeWeltkarte() {
     const ansicht = document.getElementById('ansicht');
     ansicht.innerHTML = `<h2>Weltkarte</h2><p>Hier könnte eine Weltkarte sein!</p>`;
+}
+
+// Zeigt den Kaufbereich für Flugzeuge und Mitarbeiter an
+function zeigeKaufansicht() {
+    const ansicht = document.getElementById('ansicht');
+    ansicht.innerHTML = `
+        <h2>Kaufbereich</h2>
+        
+        <!-- Flugzeuge -->
+        <h3>Flugzeuge</h3>
+        <table class="table">
+            <tr><th>Flugzeug</th><th>Preis</th><th>Beschreibung</th><th>Aktion</th></tr>
+            ${flugzeuge.map((flugzeug, index) => `
+                <tr>
+                    <td>${flugzeug.name}</td>
+                    <td>${flugzeug.preis} €</td>
+                    <td>${flugzeug.beschreibung}</td> <!-- Beschreibung anzeigen -->
+                    <td><button onclick="flugzeugKaufen(${index})">Kaufen</button></td>
+                </tr>
+            `).join('')}
+        </table>
+        
+        <!-- Mitarbeiter -->
+        <h3>Mitarbeiter</h3>
+        <table class="table">
+            <tr><th>Mitarbeiter</th><th>Kosten</th><th>Beschreibung</th><th>Aktion</th></tr>
+            ${mitarbeiter.map((item, index) => `
+                <tr>
+                    <td>${item.name}</td>
+                    <td>${item.kosten} €</td>
+                    <td>${item.beschreibung}</td> <!-- Beschreibung anzeigen -->
+                    <td><button onclick="mitarbeiterKaufen(${index})">Kaufen</button></td>
+                </tr>
+            `).join('')}
+        </table>
+    `;
+}
+
+// Funktion zum Kauf eines Flugzeugs
+function flugzeugKaufen(index) {
+    const flugzeug = flugzeuge[index];
+    if (geld >= flugzeug.preis) {
+        geld -= flugzeug.preis;
+        flugzeug.verfügbar -= 1;
+        alert(`${flugzeug.name} wurde für ${flugzeug.preis} € gekauft!`);
+        zeigeFinanzenansicht();  // Finanzübersicht aktualisieren
+    } else {
+        alert("Du hast nicht genug Geld!");
+    }
+}
+
+// Funktion zum Kauf eines Mitarbeiters
+function mitarbeiterKaufen(index) {
+    const mitarbeiterItem = mitarbeiter[index];
+    if (geld >= mitarbeiterItem.kosten) {
+        geld -= mitarbeiterItem.kosten;
+        mitarbeiterItem.anzahl += 1;
+        alert(`${mitarbeiterItem.name} wurde für ${mitarbeiterItem.kosten} € gekauft!`);
+        zeigeFinanzenansicht();  // Finanzübersicht aktualisieren
+    } else {
+        alert("Du hast nicht genug Geld!");
+    }
 }
 
 // Funktion zum Speichern des Fortschritts
@@ -81,7 +161,6 @@ function speichereFortschritt() {
         geld,
         flugzeuge,
         mitarbeiter,
-        ausstattung,
         ruten,
         einnahmen,
         ausgaben
@@ -96,6 +175,7 @@ function ladeFortschritt() {
     if (fortschritt) {
         geld = fortschritt.geld;
         flugzeuge = fortschritt.flugzeuge;
+        mitarbeiter = fortschritt.mitarbeiter;
         ruten = fortschritt.ruten;
         einnahmen = fortschritt.einnahmen;
         ausgaben = fortschritt.ausgaben;
@@ -105,62 +185,18 @@ function ladeFortschritt() {
     }
 }
 
+// Event-Listener für die verschiedenen Ansichten
 document.getElementById('flotten-ansicht').addEventListener('click', zeigeFlottenansicht);
 document.getElementById('routen-ansicht').addEventListener('click', zeigeRoutenansicht);
 document.getElementById('finanzen-ansicht').addEventListener('click', zeigeFinanzenansicht);
 document.getElementById('karte-ansicht').addEventListener('click', zeigeWeltkarte);
 document.getElementById('kauf-ansicht').addEventListener('click', zeigeKaufansicht);
 
-// Funktion zum Hinzufügen einer Route (muss durch Benutzeraktionen aufgerufen werden)
-function routeHinzufuegen(start, ziel, ticketpreis, kapazitaet) {
-    ruten.push({ start, ziel, ticketpreis, kapazitaet });
-    einnahmen += ticketpreis * kapazitaet; // Beispiel-Einnahmen
-    ausgaben += 0; // Hier könnten Ausgaben für die Route hinzugefügt werden
-}
-
-// Beispiel für das Hinzufügen einer Route
-routeHinzufuegen("Berlin", "München", 100, 180);
-
 // Speichern und Laden beim Start
 document.addEventListener('DOMContentLoaded', () => {
     ladeFortschritt();
     zeigeFlottenansicht();
 });
-// Funktion zum Kauf eines Flugzeugs
-function flugzeugKaufen(index) {
-    const flugzeug = flugzeuge[index];
-    if (geld >= flugzeug.preis) {
-        geld -= flugzeug.preis;
-        flugzeug.verfügbar++;
-        alert(`${flugzeug.name} gekauft!`);
-    } else {
-        alert("Nicht genug Geld!");
-    }
-    zeigeKaufansicht();
-}
 
-// Funktion zum Kauf eines Mitarbeiters
-function mitarbeiterKaufen(index) {
-    const person = mitarbeiter[index];
-    if (geld >= person.kosten) {
-        geld -= person.kosten;
-        person.anzahl++;
-        alert(`${person.name} eingestellt!`);
-    } else {
-        alert("Nicht genug Geld!");
-    }
-    zeigeKaufansicht();
-}
-// Funktion zum Kauf einer Ausstattung
-function ausstattungKaufen(index) {
-    const item = ausstattung[index];
-    if (geld >= item.kosten) {
-        geld -= item.kosten;
-        item.anzahl++;
-        alert(`${item.name} gekauft!`);
-    } else {
-        alert("Nicht genug Geld!");
-    }
-    zeigeKaufansicht();
-}
-
+// Event-Listener für das Speichern des Fortschritts
+window.addEventListener('beforeunload', speichereFortschritt);
