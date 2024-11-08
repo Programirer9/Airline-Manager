@@ -103,6 +103,43 @@ document.addEventListener('DOMContentLoaded', () => {
     ladeFortschritt();
     zeigeFlottenansicht();
 });
+// Funktion zum Kauf eines Flugzeugs
+function flugzeugKaufen(index) {
+    const flugzeug = flugzeuge[index];
+    if (geld >= flugzeug.preis) {
+        geld -= flugzeug.preis;
+        flugzeug.verfügbar++;
+        alert(`${flugzeug.name} gekauft!`);
+    } else {
+        alert("Nicht genug Geld!");
+    }
+    zeigeKaufansicht();
+}
+
+// Funktion zum Kauf eines Mitarbeiters
+function mitarbeiterKaufen(index) {
+    const person = mitarbeiter[index];
+    if (geld >= person.kosten) {
+        geld -= person.kosten;
+        person.anzahl++;
+        alert(`${person.name} eingestellt!`);
+    } else {
+        alert("Nicht genug Geld!");
+    }
+    zeigeKaufansicht();
+}
+// Funktion zum Kauf einer Ausstattung
+function ausstattungKaufen(index) {
+    const item = ausstattung[index];
+    if (geld >= item.kosten) {
+        geld -= item.kosten;
+        item.anzahl++;
+        alert(`${item.name} gekauft!`);
+    } else {
+        alert("Nicht genug Geld!");
+    }
+    zeigeKaufansicht();
+}
 
 // Event-Listener für das Speichern
 window.addEventListener('beforeunload', speichereFortschritt);
