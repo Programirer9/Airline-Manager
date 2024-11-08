@@ -1,23 +1,23 @@
-let geld = 1000; 
+let geld = 73618960; 
 let flugzeuge = [
     { 
         name: "Airbus A320", 
         kapazitaet: 180, 
-        preis: 100000, 
+        preis: 1000000000, 
         verfügbar: 5, 
         beschreibung: "Der Airbus A320 ist ein mittelgroßes Passagierflugzeug, ideal für kurze bis mittellange Strecken." 
     },
     { 
         name: "Boeing 737", 
         kapazitaet: 160, 
-        preis: 95000, 
+        preis: 950000000, 
         verfügbar: 5, 
         beschreibung: "Die Boeing 737 ist ein beliebtes Verkehrsflugzeug, das für seine Effizienz auf Mittelstreckenflügen bekannt ist." 
     },
     { 
         name: "Boeing 747", 
         kapazitaet: 400, 
-        preis: 250000, 
+        preis: 9500000000, 
         verfügbar: 5, 
         beschreibung: "Die Boeing 747, auch als 'Jumbo' bekannt, bietet enorme Kapazität für Langstreckenflüge." 
     }
