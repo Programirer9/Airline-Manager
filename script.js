@@ -60,6 +60,8 @@ function speichereFortschritt() {
     const fortschritt = {
         geld,
         flugzeuge,
+        mitarbeiter,
+        ausstattung,
         ruten,
         einnahmen,
         ausgaben
