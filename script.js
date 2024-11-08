@@ -89,6 +89,7 @@ document.getElementById('flotten-ansicht').addEventListener('click', zeigeFlotte
 document.getElementById('routen-ansicht').addEventListener('click', zeigeRoutenansicht);
 document.getElementById('finanzen-ansicht').addEventListener('click', zeigeFinanzenansicht);
 document.getElementById('karte-ansicht').addEventListener('click', zeigeWeltkarte);
+document.getElementById('kauf-ansicht').addEventListener('click', zeigeKaufansicht);
 
 // Funktion zum Hinzufügen einer Route (muss durch Benutzeraktionen aufgerufen werden)
 function routeHinzufuegen(start, ziel, ticketpreis, kapazitaet) {
@@ -143,5 +144,3 @@ function ausstattungKaufen(index) {
     zeigeKaufansicht();
 }
 
-// Event-Listener für das Speichern
-window.addEventListener('beforeunload', speichereFortschritt);
